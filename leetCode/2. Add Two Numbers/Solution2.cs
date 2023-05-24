@@ -100,16 +100,24 @@ namespace leetCode._2._Add_Two_Numbers
 
 		public static void PrintLinkedList(ListNode head)
 		{
-            Console.WriteLine("Solution 2: ");
+            Console.Write("Solution 2: ");
             ListNode current = head;
 			while (current != null)
 			{
 				Console.Write(current.val);
-				if (current.next != null)
-					Console.Write(" -> ");
 				current = current.next;
 			}
 			Console.WriteLine();
+		}
+
+		// From solutions, elegant alternative https://leetcode.com/problems/add-two-numbers/solutions/3077723/only-4-lines-of-code-high-level-solution-explained-all-coding-steps/
+		public ListNode AddTwoNumbers(ListNode l1, ListNode l2, int carry = 0)
+		{
+			if (l1 == null && l2 == null && carry == 0) return null;
+
+			int total = (l1 != null ? l1.val : 0) + (l2 != null ? l2.val : 0) + carry;
+			carry = total / 10;
+			return new ListNode(total % 10, AddTwoNumbers(l1?.next, l2?.next, carry));
 		}
 	}
 }
